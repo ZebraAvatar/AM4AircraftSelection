@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AM4 Route Optimizer v0.6</title>
+  <title>AM4 Route Optimizer v0.7</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
@@ -112,13 +112,13 @@ function calcPlane(pl, d, dY, dJ, dF, opHrs, mode, lf, maxRunway, stopovers) {
 }
 
 function App() {
-  const [dist, setDist] = useState(500);
+  const [dist, setDist] = useState("");
   const [opHrs, setOpHrs] = useState(8);
-  const [demY, setDemY] = useState(0);
-  const [demJ, setDemJ] = useState(0);
-  const [demF, setDemF] = useState(0);
+  const [demY, setDemY] = useState("");
+  const [demJ, setDemJ] = useState("");
+  const [demF, setDemF] = useState("");
   const [mode, setMode] = useState("easy");
-  const [rep, setRep] = useState(50);
+  const [rep, setRep] = useState(100);
   const [runway, setRunway] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [stopovers, setStopovers] = useState(false);
@@ -130,9 +130,10 @@ function App() {
     const priceLimit = maxPrice ? parseInt(maxPrice) : Infinity;
     const maxRunway = runway ? parseInt(runway) : 0;
     const lf = Math.max(0.01, Math.min(1, (rep || 0) / 100));
+    if (!dist || +dist <= 0) return [];
     return PLANES
       .filter(pl => pl["$"] <= priceLimit)
-      .map(pl => calcPlane(pl, dist, demY, demJ, demF, opHrs, mode, lf, maxRunway, stopovers))
+      .map(pl => calcPlane(pl, +dist, +demY||0, +demJ||0, +demF||0, +opHrs||8, mode, lf, maxRunway, stopovers))
       .filter(Boolean)
       .sort((a, b) => sortDir * (a[sortKey] - b[sortKey]));
   }, [dist, opHrs, demY, demJ, demF, mode, rep, runway, maxPrice, stopovers, sortKey, sortDir]);
@@ -159,7 +160,7 @@ function App() {
         <div style={{ borderBottom: "1px solid #1e293b", paddingBottom: 16, marginBottom: 24 }}>
           <div style={{ display: "flex", alignItems: "baseline", gap: 12 }}>
             <span style={{ fontSize: 11, color: "#f59e0b", letterSpacing: "0.2em" }}>AM4</span>
-            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 600, color: "#f1f5f9" }}>Route Optimizer <span style={{ fontSize: 13, color: "#475569", fontWeight: 400 }}>v0.6</span></h1>
+            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 600, color: "#f1f5f9" }}>Route Optimizer <span style={{ fontSize: 13, color: "#475569", fontWeight: 400 }}>v0.7</span></h1>
           </div>
           <p style={{ margin: "4px 0 0", fontSize: 12, color: "#64748b" }}>
             {mode === "easy" ? "Easy mode" : "Realism mode"} · Flights = dispatches within session · With demand: uses minimum flights to serve it
@@ -183,7 +184,7 @@ function App() {
             <input style={inp} type="number" inputMode="numeric" value={demF} min={0} onChange={e => setDemF(+e.target.value)} /></div>
           <div><label style={lbl}>Max Price ($)</label>
             <input style={inp} type="number" inputMode="numeric" value={maxPrice} placeholder="No limit" min={0} onChange={e => setMaxPrice(e.target.value)} /></div>
-          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
+          <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-start" }}>
             <label style={{ ...lbl, marginBottom: 8 }}>Stopovers</label>
             <label style={{ display: "flex", alignItems: "center", gap: 8, cursor: "pointer", color: "#94a3b8", fontSize: 13 }}>
               <input type="checkbox" checked={stopovers} onChange={e => setStopovers(e.target.checked)}
