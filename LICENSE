@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 ZebraAvatar
+Copyright (c) 2026
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,14 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---
+
+NOTICES
+
+Aircraft data derived from the "Airplane Efficiency" spreadsheet by Blu Lux Air,
+shared with the Airlines Manager 4 community. Used with attribution.
+
+Airlines Manager 4, aircraft names, and associated statistics are the property
+of Playrion. This project is an unofficial fan tool and is not affiliated with,
+endorsed by, or sponsored by Playrion.
