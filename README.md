@@ -98,6 +98,7 @@ Code written by [Claude](https://claude.ai) (Anthropic).
 
 | Version | Changes |
 |---|---|
+| v0.7 | Distance and demand default to empty; reputation defaults to 100%; stopovers checkbox alignment fix |
 | v0.6 | Seat fill: remaining capacity filled with premium seats after demand sizing |
 | v0.5 | Easy mode 1.5× speed multiplier; stopover checkbox (2× range) |
 | v0.4 | Ceiling rounding for passenger loading; corrected seat sizing formula |
